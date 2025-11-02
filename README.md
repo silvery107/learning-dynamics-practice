@@ -2,7 +2,10 @@
 
 
 ## Dependencies
-Check [requirements.txt](requirements.txt), or use Google Colab (coming soon)!
+```bash
+pip install requirements.txt
+```
+or run it in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/11yleSmTuXH43Vvfl3PPCps-FIkvyqJjw?usp=sharing)
 
 ## Basic Usage
 
