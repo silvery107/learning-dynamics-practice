@@ -21,6 +21,7 @@ def train_model(model, dataset, num_epochs=100, batch_size=64, learning_rate=1e-
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     loss_fn = torch.nn.MSELoss()
+    loss_log = []
 
     for epoch in range(num_epochs):
         total_loss = 0.0
@@ -33,7 +34,10 @@ def train_model(model, dataset, num_epochs=100, batch_size=64, learning_rate=1e-
             total_loss += loss.item()
 
         avg_loss = total_loss / len(dataloader)
+        loss_log.append(avg_loss)
         print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.6f}")
+    
+    return loss_log
 
 def eval_model(model, dataset):
     """
