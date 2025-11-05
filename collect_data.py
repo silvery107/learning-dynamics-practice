@@ -6,24 +6,26 @@ from src.env.pendulum_env import PendulumEnv
 from src.dataset.dynamics_dataset import DynamicsDataset
 
 def collect_data(env, num_samples, sample_action=False):
-    states = []
-    actions = []
-    next_states = []
+    data = {
+        'states': [],
+        'actions': [],
+        'next_states': []
+    }
 
     state = env.reset()
     for _ in range(num_samples):
         action = env.action_space.sample() * sample_action
         next_state, _, done, _ = env.step(action)
 
-        states.append(state)
-        actions.append(action)
-        next_states.append(next_state)
+        data['states'].append(state)
+        data['actions'].append(action)
+        data['next_states'].append(next_state)
 
         state = next_state
         if done:
             state = env.reset()
 
-    dataset = DynamicsDataset(states, actions, next_states)
+    dataset = DynamicsDataset(data)
     return dataset
 
 if __name__ == "__main__":

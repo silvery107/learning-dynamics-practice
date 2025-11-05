@@ -2,10 +2,12 @@
 Script for training the dynamics model using the collected dataset.
 """
 
+import numpy as np
 import torch
 from torch import optim
 from src.dataset.dynamics_dataset import DynamicsDataset
 from src.model.dynamics_model import DirectDynamicsModel, ResidualDynamicsModel
+
 
 def train_model(model, dataset, num_epochs=100, batch_size=64, learning_rate=1e-3):
     """
@@ -75,20 +77,22 @@ if __name__ == "__main__":
     direct_model = DirectDynamicsModel(2, 1)
 
     # Train model
-    train_model(direct_model, train_dataset, num_epochs=50, batch_size=32, learning_rate=1e-3)
+    direct_loss_log = train_model(direct_model, train_dataset, num_epochs=50, batch_size=32, learning_rate=1e-3)
 
     # Evaluate model
     val_loss = eval_model(direct_model, val_dataset)
     print(f"Validation Loss: {val_loss:.6f}")
 
-    # Save trained model
+    # Save trained model and loss log
     torch.save(direct_model.state_dict(), "direct_dynamics_model.pt")
     print("Trained model saved to direct_dynamics_model.pt")
+    np.save("direct_loss_log.npy", direct_loss_log)
 
     # Do the same for the residual model
     residual_model = ResidualDynamicsModel(2, 1)
-    train_model(residual_model, train_dataset, num_epochs=50, batch_size=32, learning_rate=1e-3)
+    residual_loss_log = train_model(residual_model, train_dataset, num_epochs=50, batch_size=32, learning_rate=1e-3)
     val_loss = eval_model(residual_model, val_dataset)
     print(f"Validation Loss: {val_loss:.6f}")
     torch.save(residual_model.state_dict(), "residual_dynamics_model.pt")
     print("Trained model saved to residual_dynamics_model.pt")
+    np.save("residual_loss_log.npy", residual_loss_log)
