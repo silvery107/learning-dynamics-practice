@@ -3,7 +3,7 @@
 
 ## Dependencies
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 or run it in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/11yleSmTuXH43Vvfl3PPCps-FIkvyqJjw?usp=sharing)
 
